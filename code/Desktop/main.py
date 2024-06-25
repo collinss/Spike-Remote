@@ -7,22 +7,23 @@ class MainWindow(Tk):
     """ main window for controlling the robot """
     def __init__(self):
         super(MainWindow, self).__init__()
+        self.title("Spike Remote")
 
         self.spike_messenger = SpikeMessenger()
 
-        frm = ttk.Frame(self, padding=10)
-        frm.grid()
-        ttk.Label(frm, text="Hello World!").grid(column=0, row=0)
-        ttk.Button(frm, text="\u2190", command=self.move_left).grid(column=1, row=0)
-        ttk.Button(frm, text="\u2191", command=self.move_up).grid(column=2, row=0)
-        ttk.Button(frm, text="\u2192", command=self.move_right).grid(column=3, row=0)
-        ttk.Button(frm, text="\u2193", command=self.move_down).grid(column=4, row=0)
-        ttk.Button(frm, text="Quit", command=self.destroy).grid(column=5, row=0)
+        main_frame = ttk.Frame(self, padding=10)
+        main_frame.grid()
+        control_frame = ttk.Frame(main_frame, padding=10)
+        ttk.Button(main_frame, text="Quit", command=self.destroy).grid(column=1, row=1)
+        control_frame.grid(column=0, row=0)
+        ttk.Button(control_frame, text="\u2190", command=self.move_left).grid(column=1, row=1)
+        ttk.Button(control_frame, text="\u2191", command=self.move_up).grid(column=2, row=0)
+        ttk.Button(control_frame, text="\u2192", command=self.move_right).grid(column=3, row=1)
+        ttk.Button(control_frame, text="\u2193", command=self.move_down).grid(column=2, row=1)
         self.bind('<Left>', self.move_left)
         self.bind('<Right>', self.move_right)
         self.bind('<Up>', self.move_up)
         self.bind('<Down>', self.move_down)
-        self.mainloop()
 
     def move_up(self, *args):
         self.spike_messenger.move(100, 0)
@@ -37,4 +38,5 @@ class MainWindow(Tk):
         self.spike_messenger.move(100, 100)
 
 if __name__ == "__main__":
-    MainWindow()
+    main_window = MainWindow()
+    main_window.mainloop()
