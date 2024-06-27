@@ -20,11 +20,13 @@ class ConnectionWindow(Toplevel):
 
         self.status = Label(main_frame)
         self.status.grid(column=0, row=1)
+        
+        self.scan()
 
     def scan(self, *args):
         self.status.configure(text="Scanning...")
 
-        def process_results(results):
+        def process_results(a, b):
             for i, result in enumerate(results):
                 self.listbox.insert(i + 1, result)
 
@@ -41,6 +43,7 @@ class MainWindow(Tk):
         main_frame = ttk.Frame(self, padding=10)
         main_frame.grid()
         control_frame = ttk.Frame(main_frame, padding=10)
+        ttk.Button(main_frame, text="Connect", command=self.open_connection_window).grid(column=0, row=1)
         ttk.Button(main_frame, text="Quit", command=self.destroy).grid(column=1, row=1)
         control_frame.grid(column=0, row=0)
         ttk.Button(control_frame, text="\u2190", command=self.move_left).grid(column=1, row=1)

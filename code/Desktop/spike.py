@@ -1,9 +1,9 @@
 import asyncio
 import threading
-# from bleak import BleakClient, BleakScanner
-# from bleak.backends.characteristic import BleakGATTCharacteristic
-# from bleak.backends.device import BLEDevice
-# from bleak.backends.scanner import AdvertisementData
+from bleak import BleakClient, BleakScanner
+from bleak.backends.characteristic import BleakGATTCharacteristic
+from bleak.backends.device import BLEDevice
+from bleak.backends.scanner import AdvertisementData
 
 SCAN_TIMEOUT = 10.0
 
@@ -26,8 +26,8 @@ class SpikeMessenger(object):
 
         # asyncio.to_thread(self._scan())
 
-    def _scan(self, callback):
-        with BleakScanner(detection_callback=callback) as scanner:
+    async def _scan(self, callback):
+        async with BleakScanner(detection_callback=callback) as scanner:
             for i in range(SCAN_TIMEOUT):
                 sleep(1)
 
