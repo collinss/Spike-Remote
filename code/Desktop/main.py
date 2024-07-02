@@ -20,6 +20,8 @@ class ConnectionWindow(Toplevel):
 
         self.status = Label(main_frame)
         self.status.grid(column=0, row=1)
+
+        connect_button = ttk.Button(main_frame, text="Connect", command=self.connect).grid(column=0, row=2)
         
         self.scan()
 
@@ -31,6 +33,9 @@ class ConnectionWindow(Toplevel):
                 self.listbox.insert(i + 1, result)
 
         self.spike_messenger.scan(process_results)
+
+    def connect(self, *args):
+        self.spike_messenger.connect(self.listbox.get(ACTIVE))
 
 class MainWindow(Tk):
     """ main window for controlling the robot """
